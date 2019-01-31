@@ -4,7 +4,6 @@
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
-
 # Visual Studio cache directory
 .vs/
 
@@ -34,3 +33,17 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*.log
+GGJ 2019/Assets/Scripts/End\.cs\.meta~develop
+
+GGJ 2019/Assets/Scripts/End\.cs\.meta~develop\.meta
+
+
+
+GGJ 2019/Library/assetDatabase3
+
+GGJ 2019/Library/CurrentLayout\.dwlt
+
+GGJ 2019/Library/expandedItems
+
+GGJ 2019/Library/
