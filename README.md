@@ -10,3 +10,6 @@ This Project is made solo to experience a full development cycle to practice:
 - User interface design
 - Unity Animation
 - Game Design
+
+### Contact
+Follow [@JoppeMin](https://twitter.com/JoppeMin) on Twitter to see my current work.
