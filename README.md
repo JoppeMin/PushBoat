@@ -1,7 +1,7 @@
 # PushBoat
 A Simple hypercasual made with unity
 
-![alt text](https://imgur.com/a/CvO7ceF)
+![alt text](https://media.giphy.com/media/4070R03MTpgMRDIHiF/giphy.gif)
 
 This Project is made solo to experience a full development cycle to practice:
 - Scripting (C#)
