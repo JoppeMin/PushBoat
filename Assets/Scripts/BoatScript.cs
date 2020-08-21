@@ -19,11 +19,13 @@ public class BoatScript : MonoBehaviour
     float currentmoveSpeed;
     public Vector3 force = Vector3.zero;
 
+    UiScript uiScript;
+
     void Start()
     {
         //Move();
         SpawnPosition = transform.position;
-
+        uiScript = FindObjectOfType<UiScript>();
         anim = gameObject.GetComponent<Animator>();
 
         Dir = Vector3.zero - transform.position;
@@ -35,7 +37,7 @@ public class BoatScript : MonoBehaviour
         transform.eulerAngles = euler;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         AddBombForce();
 
@@ -43,21 +45,29 @@ public class BoatScript : MonoBehaviour
 
         if (Vector3.Distance(transform.position, SpawnPosition) > 6f)
         {
-            Destroy(this.gameObject);
-            FindObjectOfType<UiScript>().AddPoints();
+            anim.SetTrigger("ReachedDistance");
         }
     }
 
     public void AddBombForce()
     {
+        if (force.magnitude > 0)
+        {
             Vector3 velocity = force * Time.deltaTime * 7;
             position = velocity;
-            force *= 0.92f;
+            force *= 0.94f;
             transform.localPosition += position;
+        }
     }
     
     public void DestroyBoat()
     {
+        Destroy(this.gameObject);
+    }
+    
+    public void DestroyBoatAddPoint()
+    {
+        FindObjectOfType<UiScript>().AddPoints();
         Destroy(this.gameObject);
     }
 
@@ -71,21 +81,27 @@ public class BoatScript : MonoBehaviour
         currentmoveSpeed = moveSpeed;
     }
 
+    public void OnBoatCollide()
+    {
+        DontMove();
+        force = Vector3.zero;
+        Destroy(gameObject.GetComponent<BoxCollider>());
+        anim.SetTrigger("BoatCollide"); 
+    }
+
     private void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Boat")
         {
-            moveSpeed = 0f;
-            force = Vector3.zero;
-            anim.SetTrigger("BoatCollide");
-            
+            OnBoatCollide();
+            coll.GetComponent<BoatScript>().OnBoatCollide();
 
-            coll.gameObject.GetComponent<BoatScript>().enabled = false;
-            if (this.gameObject.GetComponent<BoatScript>().enabled == true)
+            if (coll.gameObject.GetInstanceID() < gameObject.GetInstanceID())
             {
-            Instantiate(MistakeCross, new Vector3((this.transform.position.x + coll.transform.position.x) / 2, 0.4f, (this.transform.position.z + coll.transform.position.z) / 2), Quaternion.LookRotation(Camera.main.transform.position, Vector3.up));
-                Instantiate(HitStar, (new Vector3((this.transform.position.x + coll.transform.position.x) / 2, 0.1f, (this.transform.position.z + coll.transform.position.z) / 2)), Quaternion.identity);
-                FindObjectOfType<UiScript>().AddMistake();
+                Instantiate(MistakeCross, new Vector3((this.transform.position.x + coll.transform.position.x) / 2, 0.4f, (this.transform.position.z + coll.transform.position.z) / 2), Quaternion.LookRotation(Camera.main.transform.position, Vector3.up));
+                Instantiate(HitStar, (new Vector3((this.transform.position.x + coll.transform.position.x) / 2, 0.2f, (this.transform.position.z + coll.transform.position.z) / 2)), Quaternion.identity);
+                uiScript.AddMistake();
+                StartCoroutine(CameraScaling.SP.ScreenShake(.5f, 0.4f));
             }
         }
     }

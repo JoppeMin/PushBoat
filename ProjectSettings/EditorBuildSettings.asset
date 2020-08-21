@@ -7,8 +7,14 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: ac90631fcfd342b4ba715eb477afe664
+    guid: be06e2ac0c8d3f9429922cc5c8f1dce4
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 302e127019ec5404fa2e1a9af11478ab
+  - enabled: 1
+    path: Assets/Scenes/LeaderboardOnline.unity
+    guid: d96d6b71e931cda44bbed87822e65fa0
+  - enabled: 1
+    path: Assets/Scenes/LeaderboardOffline.unity
+    guid: b7cae47ca6fb2c9409ae4bda600cc103
   m_configObjects: {}
